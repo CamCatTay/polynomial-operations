@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Main {
 
-    // Accepts hex (0x11B) or polynomial string (x^8 + x^4 + x + 1)
+    // Parse out for HEX or polynomial and convert to bit format for operations
     public static Polynomial parse_polynomial(String input) {
 
         input = input.trim();
