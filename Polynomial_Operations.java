@@ -1,60 +1,41 @@
-
-import java.util.ArrayList;
-
 public class Polynomial_Operations {
 
-    // Returns the degree of polynomial
     public static int get_degree(Polynomial p) {
-        ArrayList<Integer> coefficients = p.get_polynomial();
-        for (int i = coefficients.size() - 1; i >= 0; i--) {
-            if (coefficients.get(i) != 0) return i;
-        }
-        return -1;
+        return get_degree(p.get_bits());
     }
 
-    // Polynomial long division
-    public static Polynomial divide_galois(Polynomial a, Polynomial m) {
-        ArrayList<Integer> result = new ArrayList<>(a.get_polynomial());
-        int mDeg = get_degree(m);
-
-        while (true) {
-            int current_degree = -1;
-            for (int i = result.size() - 1; i >= 0; i--) {
-                if (result.get(i) != 0) { current_degree = i; break; }
-            }
-            if (current_degree < mDeg) break;
-
-            int shift = current_degree - mDeg;
-            ArrayList<Integer> mCoeffs = m.get_polynomial();
-
-            for (int i = 0; i <= mDeg; i++) {
-                int index = i + shift;
-                while (result.size() <= index) result.add(0);
-                result.set(index, (result.get(index) ^ mCoeffs.get(i)) % 2);
-            }
+    public static int get_degree(long value) {
+        int degree = -1;
+        if (value == 0) return degree;
+        while (value != 0) {
+            degree++;
+            value >>= 1;
         }
+        return degree;
+    }
 
+    public static Polynomial divide_galois(Polynomial a, Polynomial m) {
+        long result = a.get_bits();
+        int modulus_degree = get_degree(m);
+        while (get_degree(result) >= modulus_degree) {
+            int shift = get_degree(result) - modulus_degree;
+            result ^= (m.get_bits() << shift);
+        }
         return new Polynomial(result);
     }
 
-    // Polynomial multiplication with reduction of m
     public static Polynomial multiply_galois(Polynomial a, Polynomial b, Polynomial m) {
-        ArrayList<Integer> a_coefficients = a.get_polynomial();
-        ArrayList<Integer> b_coefficients = b.get_polynomial();
-
-        int max_size = a_coefficients.size() + b_coefficients.size();
-        ArrayList<Integer> result = new ArrayList<>();
-        for (int i = 0; i < max_size; i++) result.add(0);
-
-        for (int b_index = 0; b_index < b_coefficients.size(); b_index++) {
-            if (b_coefficients.get(b_index) == 1) {
-                for (int a_index = 0; a_index < a_coefficients.size(); a_index++) {
-                    int index = a_index + b_index;
-                    result.set(index, (result.get(index) ^ a_coefficients.get(a_index)) % 2);
-                }
+        long result = 0;
+        long a_value = a.get_bits();
+        long b_value = b.get_bits();
+        int index = 0;
+        while (b_value != 0) {
+            if ((b_value & 1) == 1) {
+                result ^= (a_value << index);
             }
+            b_value >>= 1;
+            index++;
         }
-
         return divide_galois(new Polynomial(result), m);
     }
 }

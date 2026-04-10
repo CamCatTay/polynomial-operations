@@ -1,14 +1,16 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
 
-    // Converts string into polynomial for manipulation
+    // Accepts hex (0x11B) or polynomial string (x^8 + x^4 + x + 1)
     public static Polynomial parse_polynomial(String input) {
-        String[] terms = input.split("\\+");
-        int max_degree = 0;
+        input = input.trim();
+        if (input.startsWith("0x") || input.startsWith("0X")) {
+            return new Polynomial(Long.parseUnsignedLong(input.substring(2), 16));
+        }
 
-        ArrayList<Integer> exponents = new ArrayList<>();
+        long bits = 0;
+        String[] terms = input.split("\\+");
         for (String term : terms) {
             term = term.trim();
             if (term.isEmpty()) continue;
@@ -23,18 +25,9 @@ public class Main {
             } else {
                 continue;
             }
-            exponents.add(exponent);
-            if (exponent > max_degree) max_degree = exponent;
+            bits |= (1L << exponent);
         }
-
-        // Create the list
-        ArrayList<Integer> coefficients = new ArrayList<>();
-        for (int i = 0; i <= max_degree; i++)
-            coefficients.add(0);
-        for (int exponent : exponents)
-            coefficients.set(exponent, 1);
-
-        return new Polynomial(coefficients);
+        return new Polynomial(bits);
     }
 
     public static void main(String[] args) {
