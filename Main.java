@@ -37,10 +37,10 @@ public class Main {
         Scanner input = new Scanner(System.in);
 
         while (true) {
-            System.out.println("1. get_degree");
-            System.out.println("2. divide_galois");
-            System.out.println("3. multiply_galois");
-            System.out.println("0. exit");
+            System.out.println("1.) Get Degree");
+            System.out.println("2.) Divide");
+            System.out.println("3.) Multiply");
+            System.out.println("0.) Exit");
             System.out.print("Input choice: ");
             String choice = input.nextLine().trim();
 
