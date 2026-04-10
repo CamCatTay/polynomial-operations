@@ -54,10 +54,10 @@ public class Main {
                 case "2": {
                     System.out.print("Enter A(x): ");
                     Polynomial a = parse_polynomial(input.nextLine().trim());
-                    System.out.print("Enter m(x): ");
+                    System.out.print("Enter M(x): ");
                     Polynomial m = parse_polynomial(input.nextLine().trim());
                     Polynomial result = Polynomial_Operations.divide_galois(a, m);
-                    System.out.print("A(x) mod m(x) = ");
+                    System.out.print("A(x) mod M(x) = ");
                     result.print_hex();
                     System.out.println();
                     break;
@@ -67,10 +67,10 @@ public class Main {
                     Polynomial a = parse_polynomial(input.nextLine().trim());
                     System.out.print("Enter B(x): ");
                     Polynomial b = parse_polynomial(input.nextLine().trim());
-                    System.out.print("Enter m(x): ");
+                    System.out.print("Enter M(x): ");
                     Polynomial m = parse_polynomial(input.nextLine().trim());
                     Polynomial result = Polynomial_Operations.multiply_galois(a, b, m);
-                    System.out.print("A(x) * B(x) mod m(x) = ");
+                    System.out.print("A(x) * B(x) mod M(x) = ");
                     result.print_hex();
                     System.out.println();
                     break;
