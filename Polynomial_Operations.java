@@ -1,11 +1,8 @@
 public class Polynomial_Operations {
 
     public static int get_degree(Polynomial p) {
-        return get_degree(p.get_bits());
-    }
-
-    public static int get_degree(long value) {
         int degree = -1;
+        long value = p.get_bits();
         if (value == 0) return degree;
         while (value != 0) {
             degree++;
@@ -17,8 +14,8 @@ public class Polynomial_Operations {
     public static Polynomial divide_galois(Polynomial a, Polynomial m) {
         long result = a.get_bits();
         int modulus_degree = get_degree(m);
-        while (get_degree(result) >= modulus_degree) {
-            int shift = get_degree(result) - modulus_degree;
+        while (get_degree(new Polynomial(result)) >= modulus_degree) {
+            int shift = get_degree(new Polynomial(result)) - modulus_degree;
             result ^= (m.get_bits() << shift);
         }
         return new Polynomial(result);

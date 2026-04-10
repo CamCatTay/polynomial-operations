@@ -4,7 +4,10 @@ public class Main {
 
     // Accepts hex (0x11B) or polynomial string (x^8 + x^4 + x + 1)
     public static Polynomial parse_polynomial(String input) {
+
         input = input.trim();
+
+        // Check for hex input first
         if (input.startsWith("0x") || input.startsWith("0X")) {
             return new Polynomial(Long.parseUnsignedLong(input.substring(2), 16));
         }
