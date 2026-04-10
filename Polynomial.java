@@ -11,6 +11,10 @@ public class Polynomial {
         return bits;
     }
 
+    public void print_hex() {
+        System.out.print("0x" + Long.toHexString(bits).toUpperCase());
+    }
+
     public void print() {
         if (bits == 0) {
             System.out.print("0");

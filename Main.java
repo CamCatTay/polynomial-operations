@@ -58,7 +58,7 @@ public class Main {
                     Polynomial m = parse_polynomial(input.nextLine().trim());
                     Polynomial result = Polynomial_Operations.divide_galois(a, m);
                     System.out.print("A(x) mod m(x) = ");
-                    result.print();
+                    result.print_hex();
                     System.out.println();
                     break;
                 }
@@ -71,7 +71,7 @@ public class Main {
                     Polynomial m = parse_polynomial(input.nextLine().trim());
                     Polynomial result = Polynomial_Operations.multiply_galois(a, b, m);
                     System.out.print("A(x) * B(x) mod m(x) = ");
-                    result.print();
+                    result.print_hex();
                     System.out.println();
                     break;
                 }
